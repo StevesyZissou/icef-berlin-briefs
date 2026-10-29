@@ -123,11 +123,21 @@ def render_meeting(m, n):
 </article>"""
 
 
+PAGES = [("index.html", "Meeting briefs"), ("signups.html", "Signups by country")]
+
+
+def nav(current):
+    items = "".join(
+        f'<a href="{href}"{" aria-current=\"page\"" if href == current else ""}>{esc(label)}</a>'
+        for href, label in PAGES
+    )
+    return f'<nav class="sitenav" aria-label="Pages"><span class="brand mono">Arno · ICEF Berlin 2026</span>{items}</nav>'
+
+
 def main():
     css = (HERE / "style.css").read_text()
     mon = [m for m in MEETINGS if m["day"] == "mon"]
     tue = [m for m in MEETINGS if m["day"] == "tue"]
-    cards = "".join(render_meeting(m, i + 1) for i, m in enumerate(MEETINGS))
 
     page = f"""<!doctype html>
 <html lang="en">
@@ -148,6 +158,7 @@ img {{ max-width: 100%; }}
 </head>
 <body>
 <div class="page">
+{nav("index.html")}
 <header class="masthead">
   <div class="eyebrow mono">{esc(META['eyebrow'])}</div>
   <h1>{esc(META['title'])}</h1>
@@ -179,6 +190,11 @@ img {{ max-width: 100%; }}
 """
     OUT.write_text(page)
     print(f"wrote {OUT} ({OUT.stat().st_size:,} bytes), {len(MEETINGS)} meetings")
+
+    from build_signups import build as build_signups
+    out2 = HERE / "signups.html"
+    out2.write_text(build_signups(css, nav("signups.html")))
+    print(f"wrote {out2} ({out2.stat().st_size:,} bytes)")
 
 
 if __name__ == "__main__":

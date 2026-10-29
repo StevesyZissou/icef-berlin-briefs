@@ -7,7 +7,8 @@ Prep page for Arno's meetings at ICEF Berlin, 2–3 November 2026.
 - `data.py` — all the content. One Python dict per meeting: contact, links, badges, four bullets, the angle line, the students-per-year estimate, the profile-detail rows, and sources.
 - `style.css` — the page styling.
 - `build.py` — renders `data.py` into `index.html`.
-- `index.html` — the built page (committed so it can also be dropped onto any static host as-is).
+- `index.html` — the built briefs page (committed so it can also be dropped onto any static host as-is).
+- `data/signups_by_country.csv` + `signups.py` + `build_signups.py` — the **Signups by country** page (`signups.html`). To refresh it, replace the CSV (columns `country, signups, rank`) and update the snapshot date in `signups.py`.
 
 ## Updating the page
 
