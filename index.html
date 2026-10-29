@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ICEF Berlin Meeting Briefs</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html { color-scheme: light dark; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: a briefing book — one column, each meeting as a planner row with a time rail on the left and the brief on the right. */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #e9edf3;
+  --fg: #141c26;
+  --muted: #58687a;
+  --line: #d3dbe5;
+  --accent: #1d4ed8;
+  --accent-ink: #163a9c;
+  --accent-soft: #e4ebfb;
+  --ok: #1d7a46;
+  --ok-soft: #dff3e6;
+  --warn: #9a6407;
+  --warn-soft: #fbefd3;
+  --low: #6b7786;
+  --low-soft: #e6eaef;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1319; --surface: #161d26; --surface-2: #1f2834; --fg: #e8edf3; --muted: #98a5b4;
+    --line: #2a3542; --accent: #8fabff; --accent-ink: #b8c8ff; --accent-soft: #1b2744;
+    --ok: #5fd08a; --ok-soft: #14301f; --warn: #e8b454; --warn-soft: #3a2a0c; --low: #9aa6b4; --low-soft: #222b36;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1319; --surface: #161d26; --surface-2: #1f2834; --fg: #e8edf3; --muted: #98a5b4;
+  --line: #2a3542; --accent: #8fabff; --accent-ink: #b8c8ff; --accent-soft: #1b2744;
+  --ok: #5fd08a; --ok-soft: #14301f; --warn: #e8b454; --warn-soft: #3a2a0c; --low: #9aa6b4; --low-soft: #222b36;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+a { color: var(--accent-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.sel { user-select: all; }
+h1, h2, h3 { font-family: var(--display); font-variation-settings: "wdth" 88; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
+
+.page { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+
+/* Masthead */
+.masthead { padding-top: 36px; border-bottom: 2px solid var(--fg); padding-bottom: 24px; display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.masthead h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.02; }
+.lede { max-width: 66ch; margin: 0; font-size: 16px; color: var(--fg); }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 4px; }
+.stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
+.stat .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.howto { margin: 0; max-width: 72ch; font-size: 13.5px; color: var(--muted); }
+
+/* Index tables */
+.indexes { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.idx { min-width: 0; }
+.idx h3 { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.tablewrap { overflow-x: auto; }
+table.index { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.index th { text-align: left; font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); }
+table.index td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.index td.t { font-family: var(--mono); white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); width: 1%; }
+table.index td.org a { font-weight: 600; text-decoration: none; }
+table.index td.org a:hover { text-decoration: underline; }
+table.index td.org .sub { display: block; font-size: 12px; color: var(--muted); }
+table.index td.kind { color: var(--muted); white-space: nowrap; width: 1%; }
+table.index td.est { white-space: nowrap; width: 1%; text-align: right; }
+table.index td.est .num { font-family: var(--mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.conf { display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+.conf-high { background: var(--ok-soft); color: var(--ok); }
+.conf-medium { background: var(--warn-soft); color: var(--warn); }
+.conf-low { background: var(--low-soft); color: var(--low); }
+.conf-na { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* Meetings */
+.meetings { display: flex; flex-direction: column; gap: 22px; }
+.dayhead { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding-top: 12px; }
+.dayhead + .meeting, .meeting + .meeting { margin: 0; }
+.meeting { display: grid; grid-template-columns: 96px 1fr; gap: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px 22px 18px 0; scroll-margin-top: 16px; }
+.rail { display: flex; flex-direction: column; align-items: flex-end; padding-right: 16px; border-right: 1px solid var(--line); gap: 2px; }
+.rail .time { font-size: 17px; font-weight: 500; line-height: 1.2; }
+.rail .day { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.rail .n { margin-top: auto; font-size: 11px; color: var(--muted); padding-top: 12px; }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.meeting header { display: flex; flex-direction: column; gap: 6px; }
+.kicker { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.locnote { text-transform: none; letter-spacing: 0; color: var(--accent-ink); font-weight: 600; }
+.meeting h2 { font-size: 26px; font-weight: 700; line-height: 1.1; }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { font-size: 11.5px; padding: 2px 7px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); background: var(--surface-2); white-space: nowrap; }
+.badge.ok { border-color: transparent; background: var(--ok-soft); color: var(--ok); }
+.badge.accent { border-color: transparent; background: var(--accent-soft); color: var(--accent-ink); }
+.badge.warn { border-color: transparent; background: var(--warn-soft); color: var(--warn); }
+.contact { display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; margin-top: 4px; }
+.contact .who { color: var(--fg); }
+.contact .bits { font-size: 12.5px; color: var(--muted); word-break: break-word; }
+.contact .links { font-size: 13px; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 22px; align-items: start; }
+.summary { min-width: 0; }
+.bullets { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; max-width: 68ch; }
+.bullets li::marker { color: var(--accent); }
+.angle { margin: 14px 0 0; font-size: 13.5px; max-width: 68ch; color: var(--fg); padding-top: 10px; border-top: 1px dashed var(--line); }
+.lbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; display: inline-block; margin-right: 8px; }
+.estimate { background: var(--surface-2); border-radius: 4px; padding: 12px 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+.estimate .lbl { margin: 0 0 4px; }
+.estimate .num { font-family: var(--mono); font-size: 26px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+.estimate .range { font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
+.estimate .conf { margin: 6px 0 0; align-self: flex-start; }
+.estimate .basis { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+
+.more { border-top: 1px solid var(--line); padding-top: 10px; }
+.more > .lbl { display: block; margin: 0 0 6px; }
+.facts { margin: 0; display: grid; grid-template-columns: 140px minmax(0, 1fr) 140px minmax(0, 1fr); gap: 5px 14px; font-size: 13px; align-items: start; }
+.facts dt { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+.facts dd { margin: 0; min-width: 0; line-height: 1.45; }
+.facts dt:first-of-type + dd { grid-column: 2 / -1; }
+@media (max-width: 940px) {
+  .facts { grid-template-columns: 140px minmax(0, 1fr); }
+  .facts dt:first-of-type + dd { grid-column: auto; }
+}
+.sources { margin: 12px 0 0; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.sources a { color: var(--muted); }
+.sources a:hover { color: var(--accent); }
+
+.foot { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 72ch; }
+.foot p { margin: 0; }
+
+@media (max-width: 760px) {
+  .indexes { grid-template-columns: 1fr; }
+  table.index td.kind { white-space: normal; width: auto; }
+  table.index td.est { white-space: normal; }
+  table.index td.est .conf { display: block; margin: 4px 0 0; width: max-content; margin-left: auto; }
+  .meeting { grid-template-columns: 1fr; padding: 14px 16px 14px; gap: 12px; }
+  .rail { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 12px; padding: 0 0 10px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .rail .n { margin-top: 0; margin-left: auto; padding-top: 0; }
+  .grid { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: 1fr; gap: 2px 0; }
+  .facts dt:first-of-type + dd { grid-column: auto; }
+  .facts dd { margin-bottom: 8px; }
+  .meeting h2 { font-size: 22px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<header class="masthead">
+  <div class="eyebrow mono">Arno · Booth 121 · ICEF Berlin · 2–3 November 2026</div>
+  <h1>ICEF Berlin Meeting Briefs</h1>
+  <p class="lede">Twenty-one scheduled meetings. For each one: who the organisation is, roughly how many students it handles a year, and what it is most likely to want from an AI test-prep partner.</p>
+  <div class="stats">
+    <div class="stat"><div class="v mono">21</div><div class="k">Meetings</div></div><div class="stat"><div class="v mono">14</div><div class="k">Monday</div></div><div class="stat"><div class="v mono">7</div><div class="k">Tuesday</div></div><div class="stat"><div class="v mono">20</div><div class="k">Agencies</div></div><div class="stat"><div class="v mono">1</div><div class="k">Media</div></div><div class="stat"><div class="v mono">16</div><div class="k">Countries</div></div>
+  </div>
+  <p class="howto">All meetings are at Booth 121 unless marked. The <strong>Students / year</strong> figure combines each agency's self-reported ICEF placements with what its website and third-party listings show. <em>High</em> = corroborated by independent numbers; <em>medium</em> = consistent but single-sourced; <em>low</em> = self-reported only, or contradicted elsewhere. The self-reported breakdown is under Profile detail on every card.</p>
+</header>
+
+<section class="indexes">
+  <div class="idx"><h3>Monday, 2 November</h3><div class="tablewrap"><table class="index"><thead><tr><th>Time</th><th>Who</th><th>Type</th><th>Students / yr</th></tr></thead><tbody><tr><td class="t">10:00</td><td class="org"><a href="#makestudy">MakeStudy-Global</a><span class="sub">Sneha Yadav · Jalandhar, Punjab, India</span></td><td class="kind">Agent</td><td class="est"><span class="num">1.5k–4k</span><span class="conf conf-low">low</span></td></tr><tr><td class="t">10:30</td><td class="org"><a href="#gostudyfree">Go Study Free</a><span class="sub">Mahapavit Singh Anand · New Delhi, India</span></td><td class="kind">Agent</td><td class="est"><span class="num">300–650</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">11:00</td><td class="org"><a href="#edumove">Edumove Agency</a><span class="sub">Paula Alejandra Alvarez Castaneda · Sydney (Belmore), Australia</span></td><td class="kind">Agent</td><td class="est"><span class="num">50–120</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">11:30</td><td class="org"><a href="#roof">Roof Academy</a><span class="sub">Rufat Huseynzade · Baku, Azerbaijan</span></td><td class="kind">Agent + test-prep centre</td><td class="est"><span class="num">1k–1.5k</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">13:00</td><td class="org"><a href="#levntura">Levntura</a><span class="sub">Abdulrahman Soman · New Cairo, Egypt · HQ Amman, Jordan</span></td><td class="kind">Cultural exchange agent</td><td class="est"><span class="num">200–500</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">14:00</td><td class="org"><a href="#ncb">Shinezuunii Guur LLC (NCB)</a><span class="sub">Lkhamdulam Dashdorj · Ulaanbaatar, Mongolia</span></td><td class="kind">Agent</td><td class="est"><span class="num">250–450</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">14:30</td><td class="org"><a href="#isca">International Student Consultancy Agency (ISCA)</a><span class="sub">Khanssaa Khattabi · Kenitra, Morocco</span></td><td class="kind">Agent</td><td class="est"><span class="num">100–200</span><span class="conf conf-low">low</span></td></tr><tr><td class="t">15:00</td><td class="org"><a href="#owlwin">Owlwin</a><span class="sub">Anna Poleva · Almaty, Kazakhstan</span></td><td class="kind">Agent + English school</td><td class="est"><span class="num">150–300</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">15:30</td><td class="org"><a href="#travelmate">Travelmate Intercâmbio</a><span class="sub">Alexandre Argenta · Curitiba, Brazil</span></td><td class="kind">Agent (franchise network)</td><td class="est"><span class="num">2.5k–4.5k</span><span class="conf conf-high">high</span></td></tr><tr><td class="t">16:00</td><td class="org"><a href="#mynextstep">My Next Step – Le Choix de Réussir</a><span class="sub">Cristina Schneider · Carouge (Geneva), Switzerland</span></td><td class="kind">Agent (boutique)</td><td class="est"><span class="num">15–40</span><span class="conf conf-high">high</span></td></tr><tr><td class="t">16:30</td><td class="org"><a href="#beic">Baku Education Information Center (BEIC)</a><span class="sub">Murad Mammadli · Baku, Azerbaijan</span></td><td class="kind">Agent + test-prep centre</td><td class="est"><span class="num">600–900</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">17:00</td><td class="org"><a href="#pie">The PIE</a><span class="sub">Jane Gilham · London, UK</span></td><td class="kind">Media &amp; events</td><td class="est"><span class="num">330k/mo</span><span class="conf conf-na">reach</span></td></tr><tr><td class="t">17:30</td><td class="org"><a href="#admitt">Admitt</a><span class="sub">Daniel Pearse · Baku, Azerbaijan</span></td><td class="kind">Agent / admissions platform</td><td class="est"><span class="num">150–300</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">18:00</td><td class="org"><a href="#converzum">Converzum – the language community</a><span class="sub">Tamás Légrádi · Budapest, Hungary</span></td><td class="kind">Language school + agent</td><td class="est"><span class="num">100–300</span><span class="conf conf-medium">medium</span></td></tr></tbody></table></div></div>
+  <div class="idx"><h3>Tuesday, 3 November</h3><div class="tablewrap"><table class="index"><thead><tr><th>Time</th><th>Who</th><th>Type</th><th>Students / yr</th></tr></thead><tbody><tr><td class="t">10:00</td><td class="org"><a href="#osvitum">Osvitum Group</a><span class="sub">Mariia Gurina · Kyiv, Ukraine</span></td><td class="kind">Agent</td><td class="est"><span class="num">50–150</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">10:30</td><td class="org"><a href="#studylab">StudyLab Education Center</a><span class="sub">Fatmakhanim Jafarova · Baku, Azerbaijan</span></td><td class="kind">Agent + language school</td><td class="est"><span class="num">150–400</span><span class="conf conf-low">low</span></td></tr><tr><td class="t">11:00</td><td class="org"><a href="#bca">Baku City Academy (BCA)</a><span class="sub">Emil Mikayilov · Baku, Azerbaijan</span></td><td class="kind">Agent</td><td class="est"><span class="num">100–200</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">11:30</td><td class="org"><a href="#tananh">Tan Anh Co.</a><span class="sub">Hoai Anh Nguyen · Hanoi, Vietnam</span></td><td class="kind">Agent + English centre</td><td class="est"><span class="num">30–80</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">13:00</td><td class="org"><a href="#epro360">Epro 360 LLC</a><span class="sub">Francisco Galvez · Miami, USA · Potsdam, Germany</span></td><td class="kind">Agent</td><td class="est"><span class="num">100–200</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">14:00</td><td class="org"><a href="#orbis">Orbis Prep</a><span class="sub">José Guillermo Cermeño · Caracas, Venezuela</span></td><td class="kind">Agent (boutique)</td><td class="est"><span class="num">30–60</span><span class="conf conf-medium">medium</span></td></tr><tr><td class="t">18:00</td><td class="org"><a href="#findandstudy">Find And Study</a><span class="sub">Dr. Eymen Namazcı · Istanbul, Türkiye</span></td><td class="kind">Agent (inbound to Türkiye)</td><td class="est"><span class="num">200–450</span><span class="conf conf-low">low</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="meetings">
+  <h2 class="dayhead" id="monday">Monday, 2 November</h2>
+  
+<article class="meeting" id="makestudy">
+  <div class="rail">
+    <div class="time mono">10:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">01</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Jalandhar, Punjab, India</div>
+      <h2>MakeStudy-Global</h2>
+      <div class="badges"><span class="badge ">Est. 2002</span><span class="badge ">25 FT + 5 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge accent">Sub-agent network</span></div>
+      <div class="contact">
+        <div class="who"><strong>Sneha Yadav</strong> · Co-Owner</div>
+        <div class="bits"><span class="mono sel">deepak@makestudy.com</span> · <span class="mono sel">agents@makestudy.com</span> · <span class="mono sel">+91 96581 96581</span></div>
+        <div class="links"><a href="https://www.makestudy.com" target="_blank" rel="noopener">makestudy.com</a> · <a href="https://www.makestudy.com/about-us" target="_blank" rel="noopener">About</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Owner-run (founder Deepak Kumar) from a single Jalandhar office, but built as a B2B recruitment network rather than a walk-in counselling shop: the site talks about 600+ institutional relationships and partner agents across ~30 countries, 16 of them in Africa.</li><li>Canada has been the core destination for Master's and undergraduate admissions; they are now actively adding UK and EU partners after Canadian PGWP tightening. ICEF wish-list: Canada, UAE, UK, USA.</li><li>Recruits from India plus Bangladesh, Nepal, Sri Lanka, Nigeria, Ghana, Cameroon, Senegal and the UAE. Five sub-brands including MakeStudy.Online (online diplomas), AB Language School (IELTS coaching) and a visa service.</li><li>Self-reported 4,700 placements a year (2,000 vocational, 1,000 Master's) is far higher than one office can counsel directly; read it as throughput of the sub-agent network. Also claims to be "selective", which sits oddly next to 600+ partners.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Thinks in channels, not classrooms: a white-label or affiliate IELTS/PTE/DET prep offer they can push down the Africa and South Asia sub-agent network, with per-referral commission.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">1.5k–4k</div>
+        <div class="range">300–800 counselled directly; 1,500–4,000 across the network</div>
+        <span class="conf conf-low">low confidence</span>
+        <p class="basis">Self-reports 4,700/yr with 30 advisers; website gives no student numbers. Plausible only as network-wide volume; direct volume is a fraction.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 50 · K-12 100 · Vocational 2,000 · UG 500 · Grad cert 500 · Master's 1,000 · MBA 500 · PhD 50 → ~4,700</dd><dt>Looking for partners</dt><dd>Canada, UAE, UK, USA</dd><dt>Recruits from</dt><dd>Bangladesh, Cameroon, CAR, Ghana, India, Nepal, Nigeria, Senegal, Sri Lanka, UAE</dd><dt>Test prep today</dt><dd>IELTS only, via AB Language School sub-brand</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS #5396); Punjab govt licence</dd><dt>Watch for</dt><dd>600+ relationships vs "selective" claim; no student numbers published anywhere</dd></dl>
+      <p class="sources">Sources: <a href="https://www.makestudy.com/about-us" target="_blank" rel="noopener">makestudy.com/about-us</a> · <a href="https://www.timeshighereducation.com/student/student-services/makestudy" target="_blank" rel="noopener">THE listing</a> · <a href="https://www.makestudy.com/canada" target="_blank" rel="noopener">Canada page</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="gostudyfree">
+  <div class="rail">
+    <div class="time mono">10:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">02</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">New Delhi, India</div>
+      <h2>Go Study Free</h2>
+      <div class="badges"><span class="badge ">Est. 2013</span><span class="badge ">~13 staff</span><span class="badge ">19 FT + 37 PT advisers (self-rep.)</span><span class="badge ok">ICEF IAS</span><span class="badge accent">Germany specialist</span></div>
+      <div class="contact">
+        <div class="who"><strong>Mahapavit Singh Anand</strong> · CEO</div>
+        <div class="bits"><span class="mono sel">m@gostudyfree.com</span> · <span class="mono sel">ea@gostudyfree.com</span> · <span class="mono sel">+91 96 5002 2660</span></div>
+        <div class="links"><a href="https://www.gostudyfree.com" target="_blank" rel="noopener">gostudyfree.com</a> · <a href="https://www.newswire.com/news/profile-of-ceo-mahapavit-singh-anand-29422" target="_blank" rel="noopener">CEO profile (2014)</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Germany-first agency: the website sells "guaranteed admission" and zero-tuition German public universities, 300+ partner universities and a 97% visa success rate, with a money-back guarantee on German admissions. Founders Mahapavit Anand (MBA, Bradford) and Mandeep Kaur (ex-school principal).</li><li>Small core team (a job listing puts it at 13 employees); the 37 part-time advisers on the ICEF profile are almost certainly sub-agents, which matches the services they pitch to universities: lead generation, document checks, entrance-exam logistics and sub-agent management.</li><li>Self-reports ~630 placements a year, weighted to Master's and MBA, from India plus Bangladesh, Nepal, Sri Lanka, Bhutan, Indonesia and Vietnam. Believable for a Germany shop with a partner network.</li><li>Diversifying beyond Germany: ICEF wish-list is Canada, France, Italy, Japan, Poland, Spain and Thailand, and an older directory still lists UK/US/Canada/Australia. No test prep of any kind on the site.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>English-taught German Master's and the new non-German destinations all need IELTS/TOEFL; a referral or affiliate tool that gets leads to IELTS 6.5 quickly protects their admission guarantee. They would also want German, which Arno does not cover.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">300–650</div>
+        <div class="range">Self-reported 627; core team ~13 plus sub-agents</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report is consistent with a Germany-focused shop running a partner network; adviser count looks padded, placements do not.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 75 · Vocational 73 · UG 131 · Master's 195 · MBA 153 → ~627</dd><dt>Looking for partners</dt><dd>Canada, France, Germany, Italy, Japan, Poland, Spain, Thailand</dd><dt>Recruits from</dt><dd>Bangladesh, Bhutan, India, Indonesia, Nepal, Sri Lanka, Vietnam</dd><dt>Test prep today</dt><dd>None visible</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd><dt>Watch for</dt><dd>Not the same company as GoStudy (Chennai) or GoStudy Prague</dd></dl>
+      <p class="sources">Sources: <a href="https://jobs.weekday.works/business-development-manager-at-go-study-free-wkdyt3t8ht" target="_blank" rel="noopener">Company profile / job ad</a> · <a href="https://timeshighereducation.com/student/student-services/gostudyfree" target="_blank" rel="noopener">THE listing</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="edumove">
+  <div class="rail">
+    <div class="time mono">11:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">03</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Sydney (Belmore), Australia</div>
+      <h2>Edumove Agency</h2>
+      <div class="badges"><span class="badge ">Est. 2024</span><span class="badge ">1 FT + 3 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge accent">LatAm → Australia</span></div>
+      <div class="contact">
+        <div class="who"><strong>Paula Alejandra Alvarez Castaneda</strong> · Director</div>
+        <div class="bits"><span class="mono sel">visas@edumove.com.au</span> · <span class="mono sel">+61 426 167 343</span></div>
+        <div class="links"><a href="https://www.edumove.com.au" target="_blank" rel="noopener">edumove.com.au</a> · <a href="https://www.edumove.com.au/blog" target="_blank" rel="noopener">Blog</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Founder-led start-up (2024) run by a former international student; Spanish-language site aimed at Colombians and other Latin Americans who want to study in Australia, with NZ, Ireland, Malta, Spain and Dubai as secondary options.</li><li>Onshore visa work is the bread and butter: Student Visa 500, renewals, Training Visa 407 webinars, tourist visas, job-search help and paid one-to-one sessions. Listed as an official agent of Collins Institute of Australia.</li><li>Self-reports ~90 placements a year, almost all ELICOS/language (60) and vocational (25); recruits from Argentina, Chile, Colombia, Ecuador and Peru.</li><li>Website is still half-built (empty testimonials and partner sections, inconsistent email domains), so expect an early-stage, price-sensitive conversation. No test prep offered.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Spanish-interface PTE Academic and IELTS prep for language students upgrading to VET or higher-ed visas; referral commission or low per-student pricing. Very small account.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">50–120</div>
+        <div class="range">Self-reported 87; founded 2024, one-person operation</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report matches a one-adviser agency in its second year; the site's "hundreds of students" reads as cumulative.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 60 · Vocational 25 · UG 1 · Master's 1 → ~87</dd><dt>Looking for partners</dt><dd>Australia, Czech Republic, Ireland, Malta, New Zealand, Spain</dd><dt>Recruits from</dt><dd>Argentina, Chile, Colombia, Ecuador, Peru</dd><dt>Test prep today</dt><dd>None</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd></dl>
+      <p class="sources">Sources: <a href="https://collins.rtomanager.com.au/Publics/PublicsPages/AgentListByCountry.aspx" target="_blank" rel="noopener">Collins Institute agent list</a> · <a href="https://www.edumove.com.au/nosotros" target="_blank" rel="noopener">About page</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="roof">
+  <div class="rail">
+    <div class="time mono">11:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">04</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Baku, Azerbaijan</div>
+      <h2>Roof Academy</h2>
+      <div class="badges"><span class="badge ">Est. 2017</span><span class="badge ">50+ specialists (site)</span><span class="badge ">10 FT + 5 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge warn">Sells IELTS/TOEFL/SAT prep</span></div>
+      <div class="contact">
+        <div class="who"><strong>Rufat Huseynzade</strong> · Founder &amp; CEO</div>
+        <div class="bits"><span class="mono sel">partnership@roofat.az</span> · <span class="mono sel">amil.babzade@roofedu.az</span> · <span class="mono sel">+994 55 925 6157</span></div>
+        <div class="links"><a href="https://roofacademy.az/" target="_blank" rel="noopener">roofacademy.az</a> · <a href="https://roofacademy.az/az/terefdaslar" target="_blank" rel="noopener">Partners</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>First and foremost a test-prep school: IELTS (targeting band 7–8+), SAT, TOEFL, General English, kids' English and maths, with study-abroad counselling, summer schools and scholarship coaching layered on top. Official British Council IELTS registration partner.</li><li>Well connected locally: works with British Council, Cambridge English and AmCham; ran a Nobel Energy-sponsored IELTS/SAT/GRE programme for low-income youth in 2023; cites bp and the Ministry of Science and Education as project backers.</li><li>Scale claims vary by page: the ICEF profile says 4,000+ placed in 35 countries and 1,000+ at top-100 universities; the website says 2,500+ placed, 100+ at top-10, and 10,000+ students taught overall. Self-reports ~470 placements a year, mostly Bachelor's and Master's.</li><li>Wants partners in 12 countries including USA, UK, Canada, Germany, Netherlands, Singapore and South Korea. Only recruits Azerbaijanis.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Both a competitor and a prospect: they already sell classroom IELTS/TOEFL/SAT, so the realistic ask is an institutional licence or white-label of Arno's AI speaking/writing scoring and mock tests layered onto their courses, plus DET for US-bound students. Pitch as a tech supplier, not a referral partner.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">1k–1.5k</div>
+        <div class="range">250–450 placed abroad; ~1,000+ in test-prep classes</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Website's 10,000+ taught over ~9 years and 2,500+ placed imply ~1,100 students and ~280 placements a year; the ICEF "4,000 placed" claim looks inflated.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 5 · UG 194 · Master's 223 · MBA 8 · PhD 11 · Work & travel 30 → ~471</dd><dt>Looking for partners</dt><dd>Australia, Canada, Germany, Lithuania, Malaysia, Netherlands, Poland, Singapore, South Korea, Switzerland, UK, USA</dd><dt>Recruits from</dt><dd>Azerbaijan</dd><dt>Test prep today</dt><dd>IELTS, TOEFL, SAT, General English (in-house, actively hiring instructors)</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS); British Council IELTS partner (as ROOF Academic Training)</dd><dt>Watch for</dt><dd>roofat.az now redirects to roofacademy.az; placement claims differ between ICEF profile and website</dd></dl>
+      <p class="sources">Sources: <a href="https://britishcouncil.az/en/exam/ielts/register-partners" target="_blank" rel="noopener">British Council AZ partners</a> · <a href="https://nobelenergy.com/media/news/nobel-energy-supports-educational-initiative-to-empower-high-potential-youth-from-low-income-families-83" target="_blank" rel="noopener">Nobel Energy programme</a> · <a href="https://roofacademy.az/az/biz-kimik" target="_blank" rel="noopener">About</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="levntura">
+  <div class="rail">
+    <div class="time mono">13:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">05</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">New Cairo, Egypt · HQ Amman, Jordan</div>
+      <h2>Levntura</h2>
+      <div class="badges"><span class="badge ">Est. 2018</span><span class="badge ">~16 staff</span><span class="badge ">12 FT + 5 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge ok">ITAC</span><span class="badge accent">J-1 work &amp; travel</span></div>
+      <div class="contact">
+        <div class="who"><strong>Abdulrahman Soman</strong> · Co-founder &amp; General Manager</div>
+        <div class="bits"><span class="mono sel">soman@levntura.com</span> · <span class="mono sel">+20 150 005 0391</span></div>
+        <div class="links"><a href="https://www.levntura.com" target="_blank" rel="noopener">levntura.com</a> · <a href="https://www.cenet.org/agents" target="_blank" rel="noopener">Cenet agent list</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>A US J-1 cultural-exchange business first (Summer Work & Travel, camp counsellor, intern/trainee) with study abroad, language courses and volunteering as side lines. Legal entity in Jordan is Travel Gates; the Egypt office opened around 2022. Listed agent for J-1 sponsor Cenet.</li><li>About 16 staff (programme coordinators, admissions, biz-dev) across Amman and New Cairo, which fits the 17 advisers on the ICEF profile. Co-founders Ahmad Al-Mashaikh and Abdulrahman Soman.</li><li>Self-reports ~220 students a year, 200 of them cultural exchange and only ~20 academic placements. Website's cumulative "6,500 students" would imply far more and looks promotional.</li><li>Wants partners in USA, UK, Canada, Australia, NZ, Germany, Spain and Türkiye. Candidates already sit an English level test and interview before booking.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>English screening and interview-readiness for J-1 applicants (speaking-heavy), plus a referral-commission IELTS or DET offer for the small study-abroad pipeline in Jordan and Egypt. TOEFL is marginal here.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">200–500</div>
+        <div class="range">~90% J-1 exchange; ~20 academic placements</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report (220) fits the team size and the J-1 focus; the website's lifetime 6,500 figure is not consistent with it.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 2 · Vocational 5 · UG 4 · Grad cert 2 · Master's 5 · MBA 2 · Cultural exchange 200 → ~220</dd><dt>Looking for partners</dt><dd>Australia, Canada, Germany, New Zealand, Spain, Türkiye, UK, USA</dd><dt>Recruits from</dt><dd>Jordan (profile); Egypt office clearly active too</dd><dt>Test prep today</dt><dd>None</dd><dt>Credentials</dt><dd>ICEF IAS; ITAC #1300; Cenet J-1 agent</dd></dl>
+      <p class="sources">Sources: <a href="https://entarabi.com/en/2024/10/levntura-empowers-youth-through-cultural-exchange-programs/" target="_blank" rel="noopener">Egyptian press, Oct 2024</a> · <a href="https://rocketreach.co/levntura-management_b73b9599c7eae05d" target="_blank" rel="noopener">RocketReach</a> · <a href="https://www.branders.design/projects/levntura" target="_blank" rel="noopener">Branding case study</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="ncb">
+  <div class="rail">
+    <div class="time mono">14:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">06</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Ulaanbaatar, Mongolia</div>
+      <h2>Shinezuunii Guur LLC (NCB)</h2>
+      <div class="badges"><span class="badge ">Est. 2008</span><span class="badge ">8 FT + 2 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge accent">Top Mongolian agency</span></div>
+      <div class="contact">
+        <div class="who"><strong>Lkhamdulam Dashdorj</strong> · Student recruitment (website director: Sarandulam Dashdorj)</div>
+        <div class="bits"><span class="mono sel">sara@ncb.mn</span> · <span class="mono sel">sarandulam0905@gmail.com</span> · <span class="mono sel">+976 9905 6018</span></div>
+        <div class="links"><a href="https://www.ncb.mn" target="_blank" rel="noopener">ncb.mn</a> · <a href="https://ncb.mn/global-education-fair-ulaanbaatar-2026-results/" target="_blank" rel="noopener">Their Oct 2026 fair results</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>One of Mongolia's established full-service agencies (since January 2008): university and college admissions, secondary schools, visa support, summer camps and work/travel, across ~20 destination countries. Claims the highest visa success rate among Mongolian agencies.</li><li>Independently verifiable reach: official local agent for Humber Polytechnic and the University of Law (UK), partner logos include UCW, George Brown, Syracuse and RPI, and they ran their own Global Education Fair in Ulaanbaatar on 17–18 October 2026 with 16 institutions and 1,300+ visitors.</li><li>Self-reports ~450 students a year spread evenly across language (150), K-12, vocational, UG, grad and MBA; the website's 5,000+ lifetime over 18 years is consistent with that.</li><li>Used to run its own intensive IELTS/TOEFL courses (c. 2014); today the site only mentions generic "language preparation" pathways. Wants partners in USA, UK, Australia and NZ, and institutions with flexible entry requirements.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A white-label or affiliate IELTS plus DET prep for pathway students who need 5.0–6.5 for Canada, UK, Australia and NZ; TOEFL secondary for the US partners. Clarify whether Lkhamdulam and Sarandulam are the same person.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">250–450</div>
+        <div class="range">Self-reported 448; ~280/yr lifetime average</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report is in line with 5,000+ students over 18 years and 8 full-time advisers; the 1,300-visitor fair shows real market reach.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 150 · K-12 40 · Vocational 60 · UG 40 · Grad cert 40 · Master's 40 · MBA 45 · PhD 3 · Work & travel 30 → ~448</dd><dt>Looking for partners</dt><dd>Australia, New Zealand, UK, USA</dd><dt>Recruits from</dt><dd>Mongolia</dd><dt>Test prep today</dt><dd>Not currently advertised (ran IELTS/TOEFL courses in the past)</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS, #5604)</dd><dt>Watch for</dt><dd>Two office addresses in circulation (Minister Tower vs UB Tower Plus); contact name differs from website director</dd></dl>
+      <p class="sources">Sources: <a href="https://humber.ca/international/local-agent/shinezuunii-guur-llc" target="_blank" rel="noopener">Humber agent listing</a> · <a href="https://www.law.ac.uk/students/international/the-application-process/how-to-apply/international-agents/" target="_blank" rel="noopener">University of Law agents</a> · <a href="http://www.bbssoft.biz/mail2014/shinezuuniiguur/index.php" target="_blank" rel="noopener">2014 mailer</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="isca">
+  <div class="rail">
+    <div class="time mono">14:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">07</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Kenitra, Morocco</div>
+      <h2>International Student Consultancy Agency (ISCA)</h2>
+      <div class="badges"><span class="badge ">Est. 2015</span><span class="badge ">5 FT + 1 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge ok">USCG + CCG</span></div>
+      <div class="contact">
+        <div class="who"><strong>Khanssaa Khattabi</strong> · Owner &amp; Director</div>
+        <div class="bits"><span class="mono sel">contact@iscamorocco.com</span> · <span class="mono sel">+212 662 811 010</span></div>
+        <div class="links"><a href="https://www.iscamorocco.com" target="_blank" rel="noopener">iscamorocco.com</a> · <a href="https://connect.pierapps.com/widgets/agencies/42498" target="_blank" rel="noopener">Pier Connect profile</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Owner-run boutique in Kenitra (north of Rabat). Advisers studied in the UK and USA themselves; the owner holds ICEF's US and Canada Course Graduate certifications. Core services are admissions, visas and accommodation.</li><li>Also runs language holidays for teenagers during summer and mid-term breaks, so there is a junior/Cambridge-level clientele as well as university applicants.</li><li>Self-reports ~190 placements a year: 63 undergraduate, 59 Master's, 41 vocational, 19 MBA, with no language-course placements recorded. One of only about eight official Moroccan agents listed by the University of Portsmouth.</li><li>Credentials point to North America, but the ICEF wish-list is Europe: Belgium, Finland, France, Italy, Spain and UK. The website blocks crawlers, so everything here comes from directories and partner listings.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>IELTS (incl. UKVI) prep for UK-bound students and English certification for English-taught EU programmes, on a referral-commission basis that suits a six-person shop; a possible junior angle for the teen holiday groups.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">100–200</div>
+        <div class="range">Self-reported 188; ~30 placements per adviser</div>
+        <span class="conf conf-low">low confidence</span>
+        <p class="basis">Plausible for the team size, but no independent figures exist to confirm or contradict it.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Vocational 41 · UG 63 · Grad cert 6 · Master's 59 · MBA 19 → ~188</dd><dt>Looking for partners</dt><dd>Belgium, Finland, France, Italy, Spain, UK</dd><dt>Recruits from</dt><dd>Morocco</dd><dt>Test prep today</dt><dd>None advertised</dd><dt>Credentials</dt><dd>ICEF IAS; USCG #230; CCG #2626</dd><dt>Watch for</dt><dd>Two addresses on record (Rue Loubnane vs Rés. Romana Marina)</dd></dl>
+      <p class="sources">Sources: <a href="https://www.educationagentsguide.com/morocco/42498.htm" target="_blank" rel="noopener">Education Agents Guide</a> · <a href="https://www.port.ac.uk/study/international-students/your-country/morocco" target="_blank" rel="noopener">Univ. of Portsmouth agents</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="owlwin">
+  <div class="rail">
+    <div class="time mono">15:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">08</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Almaty, Kazakhstan</div>
+      <h2>Owlwin</h2>
+      <div class="badges"><span class="badge ">Est. 2013 (site says 2015)</span><span class="badge ">6 FT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge ok">ITAC</span><span class="badge warn">Sells IELTS/SAT prep</span></div>
+      <div class="contact">
+        <div class="who"><strong>Anna Poleva</strong> · (email contact: Rimma)</div>
+        <div class="bits"><span class="mono sel">rimma@owlwinexchange.com</span> · <span class="mono sel">+7 707 009 0609</span></div>
+        <div class="links"><a href="https://www.owlwinexchange.com" target="_blank" rel="noopener">owlwinexchange.com</a> · <a href="https://2gis.kz/almaty/firm/70000001054934652" target="_blank" rel="noopener">2GIS listing (Owlwin School)</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Two businesses under one roof in Almaty's upmarket Esentai area: Owlwin Exchange sends Kazakh schoolchildren on two-week summer camps abroad (New York, California, Japan, Bali, Madagascar, plus London, Barcelona and Singapore), and Owlwin School is a local English centre with a 4.8 rating from ~370 reviews on 2GIS.</li><li>The school already teaches IELTS, SAT and olympiad prep in-house; the agency side also does school and university admissions, a Canadian dual-diploma programme and portfolio building.</li><li>Self-reports 300 language-course placements plus ~18 academic a year; published camp capacity is only ~110–170 places per summer, so the 300 likely includes winter camps or domestic enrolments.</li><li>Customers are children and families rather than university applicants. Wants partners in USA, UK, China, Singapore, Spain, Italy and UAE.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Capacity, not referrals: a white-label AI practice and mock-test engine (IELTS first, DET for US high-school and UG routes, Cambridge for younger learners) that lets the school grow without hiring teachers, and a channel to premium Almaty families.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">150–300</div>
+        <div class="range">Sent abroad, mostly short camps; plus several hundred in the Almaty school</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Camp capacity caps outbound volume below the self-reported 318; the review count suggests a sizeable domestic English-school intake on top.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 300 · K-12 8 · UG 10 → ~318</dd><dt>Looking for partners</dt><dd>China, Italy, Singapore, Spain, UAE, UK, USA</dd><dt>Recruits from</dt><dd>Kazakhstan</dd><dt>Test prep today</dt><dd>IELTS, SAT, olympiad prep (own school)</dd><dt>Credentials</dt><dd>ICEF IAS; ITAC</dd><dt>Watch for</dt><dd>Site contact (info@owlwin.kz) differs from ICEF contact; stats counters on site are broken</dd></dl>
+      <p class="sources">Sources: <a href="https://owlwinexchange.com/?dt_portfolio=usa-ca-uk" target="_blank" rel="noopener">Camp pages</a> · <a href="https://2gis.kz/almaty/firm/70000001054934652" target="_blank" rel="noopener">2GIS</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="travelmate">
+  <div class="rail">
+    <div class="time mono">15:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">09</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Curitiba, Brazil</div>
+      <h2>Travelmate Intercâmbio</h2>
+      <div class="badges"><span class="badge ">Est. 2002</span><span class="badge ">24–40 units</span><span class="badge ">70 FT + 10 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge ok">IALC · Quality English</span><span class="badge accent">Largest sender on the schedule</span></div>
+      <div class="contact">
+        <div class="who"><strong>Alexandre Argenta</strong> · CEO &amp; founding partner; BELTA president</div>
+        <div class="bits"><span class="mono sel">alex@travelmate.com.br</span> · <span class="mono sel">eduardo@travelmate.com.br</span> · <span class="mono sel">+55 41 3014 0419</span></div>
+        <div class="links"><a href="https://www.travelmate.com.br" target="_blank" rel="noopener">travelmate.com.br</a> · <a href="https://www.travelmate.com.br/unidades" target="_blank" rel="noopener">Units</a> · <a href="https://www.englishusa.org/alexandre-argenta" target="_blank" rel="noopener">Argenta bio</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Brazil's franchise-model exchange agency: founded 2002 in Curitiba by Argenta and Eduardo Heidemann, franchising since 2008, peaking at 60–70 units in 2018–19 and now around 24 listed units (18 Brazilian cities plus Germany, Portugal, Australia, Ireland and an online unit). WYSE puts it at ~40 offices.</li><li>Mass-market product mix: language courses, high school, teen and family exchanges, Work & Travel, Study & Work, au pair, camps and volunteering across 40+ destinations, led by Australia, Canada, USA, UK, Malta and Ireland.</li><li>Scale is real: 40,000+ students placed lifetime (25,000 as of 2022), and the ICEF self-report of ~3,400 a year (2,000 language, 900 work & travel, 250 high school) fits that trajectory. Sells its own online pre-departure course, Mytm English, but no IELTS/TOEFL/DET prep; IELTS registration centre only.</li><li>Argenta has been president of BELTA, the Brazilian exchange-agency association, since 2021, so he is a door into dozens of other Brazilian agencies. Wants partners in Australia, Canada, NZ, UK and USA.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A Portuguese-interface white-label or affiliate IELTS/TOEFL/DET prep to upsell to the ~2,000 annual language students facing visa and entry scores for Australia, Canada, UK and Ireland, with franchisee commission; and a BELTA-level introduction.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">2.5k–4.5k</div>
+        <div class="range">Self-reported 3,365; 15,000 lifetime placements added since 2022</div>
+        <span class="conf conf-high">high confidence</span>
+        <p class="basis">Lifetime counts published by Travelmate, WYSE and IAPA imply several thousand a year, matching the self-report.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 2,000 · K-12 250 · Vocational 100 · UG 50 · Grad cert 50 · Master's 10 · MBA 5 · Work & travel 900 → ~3,365</dd><dt>Looking for partners</dt><dd>Australia, Canada, New Zealand, UK, USA</dd><dt>Recruits from</dt><dd>Brazil</dd><dt>Test prep today</dt><dd>None (IELTS registration centre; own pre-departure English course)</dd><dt>Credentials</dt><dd>ICEF IAS; IALC; Quality English; WYSE and IAPA member</dd><dt>Watch for</dt><dd>Profile says 15 cities; site lists 24 units; network has contracted since 2019</dd></dl>
+      <p class="sources">Sources: <a href="https://www.wysetc.org/2024/07/welcome-to-our-new-member-travelmate/" target="_blank" rel="noopener">WYSE welcome, Jul 2024</a> · <a href="https://iapa.org/2022/04/25/we-welcome-our-new-member-travelmate-intercambio-brazil/" target="_blank" rel="noopener">IAPA, Apr 2022</a> · <a href="https://www.portaldofranchising.com.br/noticias/franqueada-de-rede-de-intercambio-fatura-r-18-milhao-em-oito-meses/" target="_blank" rel="noopener">Franchise press, 2019</a> · <a href="https://belta.org.br/?p=22691" target="_blank" rel="noopener">BELTA</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="mynextstep">
+  <div class="rail">
+    <div class="time mono">16:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">10</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Carouge (Geneva), Switzerland</div>
+      <h2>My Next Step – Le Choix de Réussir</h2>
+      <div class="badges"><span class="badge ">Est. 2009</span><span class="badge ">1 FT adviser</span><span class="badge ok">ICEF IAS</span><span class="badge accent">Premium boutique</span></div>
+      <div class="contact">
+        <div class="who"><strong>Cristina Schneider</strong> · Founder &amp; Director</div>
+        <div class="bits"><span class="mono sel">cristina@mynextstep-reussir.com</span> · <span class="mono sel">info@mynextstep-reussir.com</span> · <span class="mono sel">+33 6 08 96 40 72</span></div>
+        <div class="links"><a href="https://www.mynextstep-reussir.com" target="_blank" rel="noopener">mynextstep-reussir.com</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>A one-woman premium consultancy: the founder (MBA, Sciences Po diploma, ex-diplomacy/NGO) has counselled since 2009 in English, French and Spanish from Geneva with a French phone number, serving affluent Swiss, French, Belgian, Spanish, Italian and Latin American families.</li><li>Destinations are top-tier: UK, Netherlands, Spain, Italy, Australia, Canada, France, Switzerland and USA; testimonials name LSE, UCL, Columbia, Bocconi, IE and ESCP.</li><li>Self-reports ~26 placements a year (15 undergraduate, 6 Master's), which is exactly what a high-touch solo practice looks like. No contradicting evidence anywhere.</li><li>The services page explicitly lists DET, IELTS and TOEFL preparation among its offers, although she has no capacity to deliver it herself. Wants partners in Australia, Canada, Germany and USA.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A referral or white-label prep product with French and Spanish interface and a counsellor view, so she can honour the test-prep line on her own site; tiny volume but a credible premium reference.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">15–40</div>
+        <div class="range">Self-reported 26; solo practice</div>
+        <span class="conf conf-high">high confidence</span>
+        <p class="basis">Self-report matches a single adviser; a data-broker listing records two employees.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 3 · UG 15 · Master's 6 · MBA 1 · Work & travel 1 → ~26</dd><dt>Looking for partners</dt><dd>Australia, Canada, Germany, USA</dd><dt>Recruits from</dt><dd>Argentina, Belgium, Chile, Colombia, France, Italy, Spain, Switzerland</dd><dt>Test prep today</dt><dd>Listed (DET, IELTS, TOEFL) but outsourced</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd></dl>
+      <p class="sources">Sources: <a href="https://a-leads.co/company/5236297_5047cba2" target="_blank" rel="noopener">Company listing</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="beic">
+  <div class="rail">
+    <div class="time mono">16:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">11</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Baku, Azerbaijan</div>
+      <h2>Baku Education Information Center (BEIC)</h2>
+      <div class="badges"><span class="badge ">Est. 1997</span><span class="badge ">12 employees</span><span class="badge ">4 FT + 1 PT advisers</span><span class="badge ">No ICEF IAS</span><span class="badge warn">Sells IELTS/TOEFL/SAT/DET prep</span></div>
+      <div class="contact">
+        <div class="who"><strong>Murad Mammadli</strong></div>
+        <div class="bits"><span class="mono sel">gunaykam@gmail.com</span> · <span class="mono sel">+994 50 392 7474</span></div>
+        <div class="links"><a href="https://beic.az" target="_blank" rel="noopener">beic.az</a> · <a href="https://britishcouncil.az/en/exam/ielts/register-partners" target="_blank" rel="noopener">British Council partner list</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>The oldest study-abroad adviser in Azerbaijan, set up in 1997 with Open Society Institute funding and now fully commercial. Historically ran the official TOEFL test centre and the country's first education fair; today it is an official British Council IELTS registration centre.</li><li>Test prep is the core: IELTS, TOEFL, SAT and General English on the homepage, with GRE, GMAT, LSAT, Duolingo, AP, IB and A-Level listed too. Says it teaches ~600 students a year and administers scholarship schemes (Civil Society Leadership Award, CEU, Salzburg medical seminars).</li><li>Self-reports ~265 placements abroad a year (130 UG, 89 language, 32 Master's), consistent with 5,000+ students over 29 years. Destinations skew European and the ICEF wish-list is Canada, Czechia, Denmark, Hungary and the Netherlands.</li><li>Partners listed include British Council, EducationUSA, DAAD, ADA University and SOCAR's study-abroad programme. The ICEF contact uses a personal Gmail and could not be found online.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A practice and mock-test layer licensed into their classrooms (B2B seats with a teacher dashboard) rather than a replacement; IELTS and DET matter most for their European destinations.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">600–900</div>
+        <div class="range">150–300 placed abroad; ~400–600 in test-prep classes</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-reported placements match the lifetime average; the ~600 taught a year is the centre's own statement.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 89 · K-12 14 · UG 130 · Master's 32 → ~265</dd><dt>Looking for partners</dt><dd>Canada, Czech Republic, Denmark, Hungary, Netherlands</dd><dt>Recruits from</dt><dd>Azerbaijan</dd><dt>Test prep today</dt><dd>IELTS, TOEFL, SAT, GRE, GMAT, Duolingo, AP/IB/A-Level (in-house)</dd><dt>Credentials</dt><dd>British Council IELTS partner; no ICEF IAS</dd><dt>Watch for</dt><dd>Sumqayit branch closed c. 2017; team page on site errors out</dd></dl>
+      <p class="sources">Sources: <a href="https://azertag.az/en/xeber/baku_hosts_education_in_the_united_states_education_fair-231423" target="_blank" rel="noopener">Azertag 2008</a> · <a href="https://azertag.az/en/xeber/8th_international_educational_fair_held_in_baku-578298" target="_blank" rel="noopener">Azertag 2013</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="pie">
+  <div class="rail">
+    <div class="time mono">17:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">12</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">London, UK <span class="locnote">Booth 109 — go to them</span></div>
+      <h2>The PIE</h2>
+      <div class="badges"><span class="badge ">Est. 2011</span><span class="badge ">~27 staff</span><span class="badge accent">Service provider</span><span class="badge ">Not an agency</span></div>
+      <div class="contact">
+        <div class="who"><strong>Jane Gilham</strong> · CCO &amp; Co-founder</div>
+        <div class="bits"><span class="mono sel">jane@thepienews.com</span> · <span class="mono sel">info@thepienews.com</span></div>
+        <div class="links"><a href="https://thepienews.com" target="_blank" rel="noopener">thepienews.com</a> · <a href="https://thepienews.com/partner-with-the-pie/" target="_blank" rel="noopener">Partner with The PIE</a> · <a href="https://www.thepieliveglobal.com/event/2027/tickets-packages" target="_blank" rel="noopener">PIE Live Global 2027 packages</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>The sector's trade press and events company: The PIE News, PIE Live conferences, the PIEoneer Awards, PIE Jobs and webinars. Founded 2011 by Amy Baker (CEO), Clare Gossage (COO) and Jane Gilham, who ran ALPHE agent conferences for a decade before that.</li><li>Reach: ~330k monthly visitors, 110k social followers, 28 webinars and ~3,000 event attendees in 2025. PIE Live Germany ran in Berlin on 30 October, three days before this meeting.</li><li>Next events: PIE High Brazil (São Paulo, 12 Nov 2026), PIE Live India (Delhi, 12 Feb 2027), PIE Live Global in London (15–16 Mar 2027; 900+ attendees, exhibitors last year included IELTS, ETS and British Council), PIE Live Malaysia (20 Mar 2027), PIEoneer Awards (London, 3 Sep 2027; entries open Jan 2027).</li><li>Price points to anchor on: PIE Live Global agency/institutional partner £2,000 (2–4 tickets), vendor pass £1,900, exhibitor table £5,750–7,250. Sponsored op-eds, newsletter, webinars and PIEoneer sponsorship are quoted on request; LANGUAGECERT and two AI edtechs already sponsor the 2026 awards.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>B2B visibility with agents, universities and language schools, not students. Realistic entry points: a sponsored op-ed or webinar on AI test prep, a PIEoneer entry in January, or a £2k partner tier at PIE Live Global; ask for the media kit prices and any startup rate.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">330k/mo</div>
+        <div class="range">Monthly readers; ~3,000 event attendees a year</div>
+        <span class="conf conf-na">reach</span>
+        <p class="basis">Media company, so reach rather than students. Figures are The PIE's own about and partner pages.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Audience</dt><dd>~330k monthly visitors; 6M unique since 2020; 110k social followers</dd><dt>Events 2026–27</dt><dd>PIE High Brazil 12 Nov · PIE Live India 12 Feb · PIE Live Global London 15–16 Mar · PIE Live Malaysia 20 Mar · Compliance Con May · PIE APAC Gold Coast 27–29 Jul · PIEoneers 3 Sep</dd><dt>Packages</dt><dd>Site ads, newsletter, sponsored op-eds, white papers, webinars, event and awards sponsorship, bespoke roundtables</dd><dt>Current awards sponsors</dt><dd>LANGUAGECERT, Edvia.ai, LE AI (Leverage Edu)</dd></dl>
+      <p class="sources">Sources: <a href="https://thepienews.com/about-the-pie/" target="_blank" rel="noopener">About The PIE</a> · <a href="https://thepienews.com/events/" target="_blank" rel="noopener">Events</a> · <a href="https://www.thepielivegermany.com/event/2026/home" target="_blank" rel="noopener">PIE Live Germany 2026</a> · <a href="https://pieoneerawards.com/2026/en/page/home" target="_blank" rel="noopener">PIEoneer 2026</a> · <a href="https://thepienews.com/people/jane-gilham/" target="_blank" rel="noopener">Jane Gilham</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="admitt">
+  <div class="rail">
+    <div class="time mono">17:30</div>
+    <div class="day">Mon</div>
+    <div class="n mono">13</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Baku, Azerbaijan</div>
+      <h2>Admitt</h2>
+      <div class="badges"><span class="badge ">Est. 2018</span><span class="badge ">30 FT advisers (self-rep.)</span><span class="badge ok">ICEF IAS</span><span class="badge ok">ITAC</span><span class="badge accent">Tech-led · Landau group</span></div>
+      <div class="contact">
+        <div class="who"><strong>Daniel Pearse</strong></div>
+        <div class="bits"><span class="mono sel">partner@admitt.io</span> · <span class="mono sel">+994 55 544 8629</span></div>
+        <div class="links"><a href="https://admitt.io/" target="_blank" rel="noopener">admitt.io</a> · <a href="https://au.edu.az/en/news/admitt_platformasinin_teqdimati_kecirilib_2025" target="_blank" rel="noopener">AU presentation, Nov 2025</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Positions itself as a data-driven admissions platform rather than a classic agency: AI interview practice, a parent portal, package pricing from $300 to $2,750, and a separate CRM product sold to universities (17 partner institutions listed, incl. George Mason, Southampton, Wollongong, Curtin Singapore).</li><li>Appears to sit inside Landau Education Group, a Baku private-school chain (job ads for Admitt roles are posted by Landau; a Landau academy head shares the Pearse surname). Landau's schools run an NCUK foundation year and claim average IELTS 7.5, so Admitt has a captive feeder.</li><li>Website says 145 students accepted last year at a 48% acceptance rate and 23 funded scholarships averaging ~$8k; the ICEF profile claims a 100% acceptance rate and ~250 placements, 200 of them undergraduate. Daniel Pearse is described as a former University of Sheffield admissions committee member.</li><li>Ambitious wish-list of 12 partner countries (USA, UK, Canada, Australia, Japan, South Korea, China, Austria, Belgium, Cyprus, Czechia, Denmark); claimed recruiting from Kazakhstan and Uzbekistan is not evidenced. No test prep offered beyond one IELTS blog post.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A technology conversation: API or white-label IELTS/TOEFL/DET prep embedded in the admitt.io student journey, with Landau's K-12 pipeline as the volume; they may also see Arno as a lead source for their university CRM.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">150–300</div>
+        <div class="range">~300 applicants, ~145 accepted (site); self-reported 248</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Website's own acceptance figures and a Nov 2025 presentation (500+ placed over five years) bracket the self-report; the 30-adviser count likely includes Landau staff.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 6 · K-12 2 · UG 200 · Master's 20 · MBA 10 · PhD 10 → ~248</dd><dt>Looking for partners</dt><dd>Australia, Austria, Belgium, Canada, China, Cyprus, Czech Republic, Denmark, Japan, South Korea, UK, USA</dd><dt>Recruits from</dt><dd>Azerbaijan (profile also lists Kazakhstan, Uzbekistan)</dd><dt>Test prep today</dt><dd>None</dd><dt>Credentials</dt><dd>ICEF IAS; ITAC #2410</dd><dt>Watch for</dt><dd>48% vs "100%" acceptance claims; About and Pricing pages still under development</dd></dl>
+      <p class="sources">Sources: <a href="https://jobs.glorri.az/vacancies/landauschool/landauschool-masters-phd-application-specialist-study-abroad-admitt-leznik-co-8546" target="_blank" rel="noopener">Landau job ad (Admitt role)</a> · <a href="https://www.ncuk.ac.uk/where-can-i-study/landau-school/" target="_blank" rel="noopener">NCUK on Landau School</a> · <a href="https://sdg.bsu.edu.az/news/bsu-representatives-visited-the-landau-education-group" target="_blank" rel="noopener">BSU visit to Landau</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="converzum">
+  <div class="rail">
+    <div class="time mono">18:00</div>
+    <div class="day">Mon</div>
+    <div class="n mono">14</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Budapest, Hungary</div>
+      <h2>Converzum – the language community</h2>
+      <div class="badges"><span class="badge ">Est. 1991</span><span class="badge ">120–150 teachers</span><span class="badge ">2 FT advisers</span><span class="badge ">No ICEF IAS</span><span class="badge warn">TOEFL test centre · sells IELTS/TOEFL prep</span></div>
+      <div class="contact">
+        <div class="who"><strong>Tamás Légrádi</strong> · Owner &amp; CEO; president of NYESZE</div>
+        <div class="bits"><span class="mono sel">info@converzum.hu</span> · <span class="mono sel">+36 1 368 1156</span></div>
+        <div class="links"><a href="https://converzum.hu/" target="_blank" rel="noopener">converzum.hu</a> · <a href="https://projects.teacheracademy.eu/organization/converzum-tudomany-nyelviskola-zrt/" target="_blank" rel="noopener">Teacher Academy profile</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Primarily a large domestic language school (founded 1991 as Tudomány Nyelviskola, rebranded 2016, now trading as Converzum International House Budapest after a 2025 merger): 500+ corporate clients, adult courses, TEFL teacher training with Erasmus+ accreditation, and 23,000+ students taught historically.</li><li>An accredited exam centre and a TOEFL iBT test centre since 2006; sells online TOEFL and IELTS Academic/General prep plus Cambridge and Euroexam courses. Légrádi presides over NYESZE, the Hungarian language-school association, and founded the Language Parade expo.</li><li>Outbound business is small: two-week junior camps (ages 8–17) in the UK, Malta, Ireland, Spain and Austria, with a sister summer school in Weymouth opened in 2022. Self-reports 110 language placements and 25 work-and-travel a year.</li><li>The ICEF profile's "close to 6,000 junior allocations" refers to the Hungarian state foreign-language programme (KNYP), which was suspended in 2020 and whose status is unclear; nothing public names Converzum in it. Wants partners in Austria, France, Germany, Ireland, Malta, Spain and UK.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Part competitor: they teach and test TOEFL/IELTS themselves. The realistic conversation is licensing or white-labelling Arno for their adult, corporate and exam-centre candidates, possibly Hungarian-localised. Low agency value, higher school value.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">100–300</div>
+        <div class="range">Outbound students; thousands a year in the Budapest school</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-reported 135 outbound fits two advisers and a camps-only product; the 6,000 figure is cumulative and tied to a paused state scheme.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 110 · Work & travel 25 → ~135</dd><dt>Looking for partners</dt><dd>Austria, France, Germany, Ireland, Malta, Spain, UK</dd><dt>Recruits from</dt><dd>Hungary</dd><dt>Test prep today</dt><dd>TOEFL iBT, IELTS, Cambridge, Euroexam (own courses); TOEFL test centre</dd><dt>Credentials</dt><dd>Erasmus+ accredited; Europass Teacher Academy provider; no ICEF IAS</dd><dt>Watch for</dt><dd>Merger partner (autumn 2025) not named; state-programme claims unverifiable</dd></dl>
+      <p class="sources">Sources: <a href="https://infostart.hu/belfold/2025/12/21/a-nyelviskolaknak-van-egy-nyomos-erve-miert-kellene-elobb-kezdeni-a-masodik-idegen-nyelv-tanulasat" target="_blank" rel="noopener">Infostart interview, Dec 2025</a> · <a href="https://englishuk.com/ru/course-finder/course-finder-results?id=380" target="_blank" rel="noopener">Weymouth English Centre</a> · <a href="https://hvg.hu/elet/20220107_ingyenes_kulfoldi_nyelvtanfolyam_kozepiskola_nyelvoktatas" target="_blank" rel="noopener">KNYP background</a></p>
+    </div>
+  </div>
+</article>
+  <h2 class="dayhead" id="tuesday">Tuesday, 3 November</h2>
+  
+<article class="meeting" id="osvitum">
+  <div class="rail">
+    <div class="time mono">10:00</div>
+    <div class="day">Tue</div>
+    <div class="n mono">15</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Kyiv, Ukraine</div>
+      <h2>Osvitum Group</h2>
+      <div class="badges"><span class="badge ">Est. 2019</span><span class="badge ">Founder-led</span><span class="badge ok">ICEF IAS</span></div>
+      <div class="contact">
+        <div class="who"><strong>Mariia Gurina</strong> · Owner</div>
+        <div class="bits"><span class="mono sel">gurina.study@gmail.com</span> · <span class="mono sel">+380 63 073 0662</span></div>
+        <div class="links"><a href="https://osvitum.com" target="_blank" rel="noopener">osvitum.com</a> · <a href="https://www.linkedin.com/in/mariia-gurina/" target="_blank" rel="noopener">LinkedIn (Mariia Gurina)</a> · <a href="https://www.instagram.com/osvitum.group/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.education.ua/abroad/company/1300/" target="_blank" rel="noopener">education.ua listing</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Founder-led agency based at UNIT.City innovation park in Kyiv, six years old, serving Ukrainian families with university admissions (foundation to MBA, with three months of post-enrolment support), language courses abroad, schools, children's camps and career-guidance testing for grades 10–11.</li><li>Ten core destinations: Netherlands, Czechia, UK, Ireland, France, USA, Italy, Spain, Switzerland and Germany; the ICEF wish-list adds Canada, Croatia, Cyprus, Iceland, Malta and Norway. Says 460+ partners and 100+ partner inspections.</li><li>Self-reports ~70 placements a year (33 language, 31 undergraduate); the website's "1,500+ enrolled abroad" since 2019 looks inflated or includes camps and career-guidance clients. Not in Ukraine's top-five agency rankings.</li><li>A directory listing says she already offers IELTS, TOEFL, Duolingo, SAT and GMAT prep through courses or one-to-one, but there is no in-house product on the website. Runs fairs and seminars; has attended 32+ international conferences.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A referral or affiliate deal with Ukrainian-language counsellor access; DET is especially relevant (low cost, remote testing for displaced students), with IELTS/TOEFL for Europe-bound applicants.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">50–150</div>
+        <div class="range">Self-reported 72; founder-led, no advisers listed</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report is credible for a solo-led agency; the website's cumulative figure would imply ~250 a year and is not supported elsewhere.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 33 · K-12 4 · UG 31 · Master's 3 · MBA 1 → ~72</dd><dt>Looking for partners</dt><dd>Canada, Croatia, Cyprus, Czech Republic, France, Germany, Iceland, Ireland, Italy, Malta, Netherlands, Norway</dd><dt>Recruits from</dt><dd>Ukraine</dd><dt>Test prep today</dt><dd>Resold (IELTS/TOEFL/DET/SAT/GMAT per education.ua); none in-house</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd><dt>Watch for</dt><dd>Second brand/Instagram "study_travel_group"; two Gmail contacts in use</dd></dl>
+      <p class="sources">Sources: <a href="https://www.education.ua/abroad/company/1300/" target="_blank" rel="noopener">education.ua</a> · <a href="https://focus.ua/uk/ukraine/756920-top-5-agentstv-dlya-navchannya-za-kordonom-2026" target="_blank" rel="noopener">Focus.ua top agencies 2026</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="studylab">
+  <div class="rail">
+    <div class="time mono">10:30</div>
+    <div class="day">Tue</div>
+    <div class="n mono">16</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Baku, Azerbaijan</div>
+      <h2>StudyLab Education Center</h2>
+      <div class="badges"><span class="badge ">Est. 2019</span><span class="badge ">6 FT + 2 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge warn">Runs IELTS classes</span></div>
+      <div class="contact">
+        <div class="who"><strong>Fatmakhanim Jafarova</strong> · (website names Laman Abasbayli as Founder &amp; CEO)</div>
+        <div class="bits"><span class="mono sel">info@studylab.az</span> · <span class="mono sel">+994 70 630 9626</span></div>
+        <div class="links"><a href="http://studylab.az" target="_blank" rel="noopener">studylab.az</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Baku agency plus language school (StudyLab School), founded 2019: study-abroad selection, admissions, scholarships, visas and pre-departure, alongside foreign-language and international-exam courses, professional trainings and some SME consulting.</li><li>Strong European tilt with a growing China line: partner logos and news point to UK, Germany, Türkiye, Italy, Canada, USA, Malaysia, Switzerland, Poland, Latvia and Czechia, and the ICEF wish-list adds Belgium, Hungary, Netherlands, UAE.</li><li>Self-reports ~430 placements a year (200 UG, 100 Master's, 50 MBA, 20 PhD) and says it supports 300+ students a year; the website says the school teaches 150–250 adults a year. Fifty MBA and twenty doctoral placements from an eight-adviser shop looks optimistic.</li><li>Digital footprint is thin: the website is a 2020 snapshot (all news dated April–May 2020) and a job ad combines "IELTS instructor" with "study-abroad consultant" in one role.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Blended or supplementary platform licences for their in-person IELTS classes, plus TOEFL and DET for the Europe and China routes; price-sensitive, possibly interested in lead generation for the school.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">150–400</div>
+        <div class="range">Self-reported 434; website says 150–250 taught a year</div>
+        <span class="conf conf-low">low confidence</span>
+        <p class="basis">No independent corroboration; graduate-level placement counts look high for the adviser headcount.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 35 · K-12 3 · Vocational 3 · UG 200 · Grad cert 20 · Master's 100 · MBA 50 · PhD 20 · Work & travel 3 → ~434</dd><dt>Looking for partners</dt><dd>Belgium, Canada, Czech Republic, Hungary, Italy, Latvia, Netherlands, Poland, Switzerland, UAE, UK, USA</dd><dt>Recruits from</dt><dd>Azerbaijan</dd><dt>Test prep today</dt><dd>IELTS classes and mock exams (in-house); TOEFL/SAT/CSCA claimed on profile</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd><dt>Watch for</dt><dd>ICEF contact differs from the CEO named on the site; site not updated since 2020</dd></dl>
+      <p class="sources">Sources: <a href="https://busy.az/vacancy/24723/ielts-instructor-study-abroad-consultant" target="_blank" rel="noopener">busy.az vacancy</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="bca">
+  <div class="rail">
+    <div class="time mono">11:00</div>
+    <div class="day">Tue</div>
+    <div class="n mono">17</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Baku, Azerbaijan</div>
+      <h2>Baku City Academy (BCA)</h2>
+      <div class="badges"><span class="badge ">Est. 2017</span><span class="badge ">4-person team page</span><span class="badge ">11 FT + 7 PT advisers (self-rep.)</span><span class="badge ok">ICEF IAS</span></div>
+      <div class="contact">
+        <div class="who"><strong>Emil Mikayilov</strong> · Director</div>
+        <div class="bits"><span class="mono sel">emil.m@bakucityacademy.com</span> · <span class="mono sel">+994 50 277 1123</span></div>
+        <div class="links"><a href="https://bakucityacademy.com/en" target="_blank" rel="noopener">bakucityacademy.com</a> · <a href="https://az.linkedin.com/in/emilmikayilov" target="_blank" rel="noopener">LinkedIn (Emil Mikayilov)</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Licensed Baku consultancy founded 2017 selling an "A to Z" package: free consultation, applications, scholarships and visas. Website says 1,000+ students supported since 2017, 110 admitted to elite universities (Oxbridge, Ivy League, Imperial, UCL) and 250+ Azerbaijan State Scholarship recipients.</li><li>Destinations weighted to Germany and the UK (Glasgow, Nottingham, Constructor University), with US, Italy, Hungary, Czechia, China and Australia; one named official partner, NCC Education (UK). ICEF wish-list: China, Germany, Netherlands, South Korea, Spain, UK.</li><li>Self-reports ~200 placements a year, 120 of them Master's; that matches the lifetime average, but the 18 advisers on the profile contrast with a four-person team page, and the claimed recruiting from Bangladesh, Georgia, Kazakhstan and Kyrgyzstan is not visible anywhere.</li><li>The ICEF description mentions TOEFL, IELTS, SAT, GMAT and GRE training, but the website shows no test prep at all and its stat counters are placeholders.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Germany/UK Master's applicants and State Scholarship candidates all need IELTS or TOEFL; a bundled prep offer inside the A-to-Z package with affiliate commission lets them re-add test prep without staff.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">100–200</div>
+        <div class="range">Self-reported 198; ~110–125 a year lifetime average</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Website lifetime count supports the self-report; adviser headcount and multi-country recruiting do not hold up.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 15 · K-12 3 · UG 40 · Grad cert 2 · Master's 120 · MBA 8 · PhD 10 → ~198</dd><dt>Looking for partners</dt><dd>China, Germany, Netherlands, South Korea, Spain, UK</dd><dt>Recruits from</dt><dd>Azerbaijan (profile also lists Bangladesh, Georgia, Kazakhstan, Kyrgyz Republic)</dd><dt>Test prep today</dt><dd>None on site (claimed on profile)</dd><dt>Credentials</dt><dd>ICEF IAS; British Council and ICEF agent certificates</dd></dl>
+      <p class="sources">Sources: <a href="https://bakucityacademy.com/az/page/5/haqqimizda" target="_blank" rel="noopener">About (AZ)</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="tananh">
+  <div class="rail">
+    <div class="time mono">11:30</div>
+    <div class="day">Tue</div>
+    <div class="n mono">18</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Hanoi, Vietnam</div>
+      <h2>Tan Anh Co.</h2>
+      <div class="badges"><span class="badge ">Est. 2001</span><span class="badge ">5 FT + 8 PT advisers</span><span class="badge ">No ICEF IAS</span><span class="badge warn">Teaches TOEFL/IELTS</span></div>
+      <div class="contact">
+        <div class="who"><strong>Hoai Anh Nguyen</strong> · Director</div>
+        <div class="bits"><span class="mono sel">tananhedu@vnn.vn</span> · <span class="mono sel">+84 24 3942 2373</span></div>
+        <div class="links"><a href="http://tananh.edu.vn" target="_blank" rel="noopener">tananh.edu.vn</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Long-established (2001) Hanoi agency in Hoan Kiem district that pairs study-abroad counselling with its own English centre: General, ESP and Academic English, translation, and TOEFL and IELTS preparation.</li><li>Describes its markets as New Zealand, Australia, UK, USA, Canada, Europe, Singapore, China, Japan and Korea, across language, high school, vocational, Bachelor's, Master's and PhD; calls itself a Specialist Agent of New Zealand, although it does not appear on Education New Zealand's Hanoi agent-event lists.</li><li>Self-reports only ~46 placements a year (12 UG, 11 vocational, 10 K-12); the 13 advisers are probably mostly English-centre teachers. Wants partners in Canada and USA only.</li><li>Essentially no public footprint: the website blocks crawlers, and English and Vietnamese searches surface nothing. Easy to confuse with the much larger Đức Anh and Nhật Anh agencies.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>A low-cost, Vietnamese-localised IELTS/TOEFL (and PTE for NZ/Australia) tool to bolt onto the English centre: referral or a small B2B licence, not a volume channel.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">30–80</div>
+        <div class="range">Self-reported 46</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report plus the absence of any marketing footprint both point to a small operation.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 5 · K-12 10 · Vocational 11 · UG 12 · Grad cert 2 · Master's 1 · MBA 1 · PhD 2 · Work & travel 2 → ~46</dd><dt>Looking for partners</dt><dd>Canada, USA</dd><dt>Recruits from</dt><dd>Vietnam</dd><dt>Test prep today</dt><dd>TOEFL and IELTS (own English centre)</dd><dt>Credentials</dt><dd>None listed (no ICEF IAS)</dd></dl>
+      <p class="sources">Sources: <a href="https://www.enz.govt.nz/assets/events/Viet-Nam/Attendee-List-For-Agents-Hanoi-New-Zealand-Fair-and-Agent-Seminar.pdf" target="_blank" rel="noopener">ENZ Hanoi attendee list</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="epro360">
+  <div class="rail">
+    <div class="time mono">13:00</div>
+    <div class="day">Tue</div>
+    <div class="n mono">19</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Miami, USA · Potsdam, Germany</div>
+      <h2>Epro 360 LLC</h2>
+      <div class="badges"><span class="badge ">Est. 2014</span><span class="badge ">~10–17 staff</span><span class="badge ">15 FT + 2 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge accent">German-speaking → USA</span></div>
+      <div class="contact">
+        <div class="who"><strong>Francisco Galvez</strong> · CEO &amp; co-founder</div>
+        <div class="bits"><span class="mono sel">info@epro360.com</span> · <span class="mono sel">+1 317 480 6007</span></div>
+        <div class="links"><a href="https://www.epro360.com" target="_blank" rel="noopener">epro360.com</a> · <a href="https://www.epro360.de" target="_blank" rel="noopener">epro360.de</a> · <a href="https://www.epro360.com/team" target="_blank" rel="noopener">Team</a> · <a href="https://www.provenexpert.com/epro-360-llc/" target="_blank" rel="noopener">ProvenExpert reviews</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Despite the Miami address, the real business is German-speaking students going to the USA: the German site calls itself the #1 US college counsellor for the DACH region, with a Potsdam office and four guarantees (money-back if no top-25% university, best price, quality, ROI) and "up to 70% savings via scholarships".</li><li>Started 2014 by three international students (Galvez and Jonas Kehrbaum are the co-founders); ~10 named staff, listings put the team at 11–17 across Miami, Seville and Berlin, largely remote. 312 reviews on ProvenExpert at ~4.9.</li><li>Website claims 663+ students placed in 10+ years (another page says 1,750+ supported); self-reports ~195 placements a year (120 UG, 40 Master's, 34 MBA). The ICEF profile's recruiting countries (Ecuador, Peru, Mongolia) have no visible support online.</li><li>Lists IELTS/TOEFL preparation as a service without saying how it is delivered; no PTE, DET or SAT. Wants partners in USA, UK, Canada, Australia, NZ, Germany, Italy and Switzerland. Athletic scholarships appear only in old directory text.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>TOEFL and DET prep for German-speaking teens, ideally with a German interface, white-label or referral; predictable scores reduce the refund risk built into their guarantee model.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">100–200</div>
+        <div class="range">Self-reported 194; ~60–70/yr lifetime average</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report sits at the top of what the published lifetime count supports; the 1,750 claim and placeholder counters are red flags.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>UG 120 · Master's 40 · MBA 34 → ~194</dd><dt>Looking for partners</dt><dd>Australia, Canada, Germany, Italy, New Zealand, Switzerland, UK, USA</dd><dt>Recruits from</dt><dd>Germany/DACH in practice (profile: Ecuador, Germany, Mongolia, Peru, Spain)</dd><dt>Test prep today</dt><dd>IELTS/TOEFL listed, format unspecified</dd><dt>Credentials</dt><dd>ICEF Agency Status (IAS)</dd></dl>
+      <p class="sources">Sources: <a href="https://remotive.com/remote-companies/epro-360-115519" target="_blank" rel="noopener">Remotive</a> · <a href="https://www.sortlist.co.uk/agency/epro-360-service-provider-to-study-in-the-u-s" target="_blank" rel="noopener">Sortlist</a> · <a href="https://www.ampliz.com/company/epro-360-llc-scholarships-in-the-us/91981334" target="_blank" rel="noopener">Ampliz</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="orbis">
+  <div class="rail">
+    <div class="time mono">14:00</div>
+    <div class="day">Tue</div>
+    <div class="n mono">20</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Caracas, Venezuela</div>
+      <h2>Orbis Prep</h2>
+      <div class="badges"><span class="badge ">Est. 2016</span><span class="badge ">2 FT + 1 PT advisers</span><span class="badge ">No ICEF IAS on profile</span><span class="badge accent">LatAm → USA/Europe</span></div>
+      <div class="contact">
+        <div class="who"><strong>José Guillermo Cermeño</strong> · CEO &amp; founder</div>
+        <div class="bits"><span class="mono sel">info@orbisprep.net</span> · <span class="mono sel">asesoria@orbisprep.net</span> · <span class="mono sel">+58 424 254 7069</span></div>
+        <div class="links"><a href="https://www.orbisprep.net" target="_blank" rel="noopener">orbisprep.net</a> · <a href="https://ve.linkedin.com/in/cermeno" target="_blank" rel="noopener">LinkedIn (Cermeño)</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>Founder-led admissions consultancy (legal entity Servicios Educativos Cermeño C.A.) for Venezuelan, Brazilian and Chilean applicants to top universities, with a Chilean phone line as well. 2024 placements named on the site include Virginia Tech, UNC, UVA, Miami, Georgetown, UPenn, NYU, IE and UE Madrid.</li><li>Services: undergraduate, graduate and PhD advising, language courses abroad, camps and gap years; destinations USA, Canada, Germany, UK, France, Spain, Malta and Czechia. Partners announced on LinkedIn include EU Business School, GISMA and Inspired Education boarding schools; works through an ApplyBoard intake.</li><li>Self-reports ~57 students a year across nine categories (15 UG, 12 language, 10 Master's), which fits a three-person team. Cermeño focuses on professionals with 3+ years' experience applying to top graduate programmes.</li><li>The ICEF profile says they run GMAT, GRE, SAT and TOEFL courses in Caracas, but the website offers no test prep (those names appear only in trademark disclaimers) and looks neglected: Spanish only, broken links, last testimonial 2023.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Spanish-interface TOEFL and especially DET prep as an affiliate product (cost matters for Venezuelan families); what they most need is GMAT/GRE, which is outside Arno's scope.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">30–60</div>
+        <div class="range">Self-reported 57; three-person team</div>
+        <span class="conf conf-medium">medium confidence</span>
+        <p class="basis">Self-report is consistent with the team size and the high-touch graduate focus; nothing contradicts it.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Language 12 · K-12 2 · Vocational 5 · UG 15 · Grad cert 1 · Master's 10 · MBA 6 · PhD 1 · Work & travel 5 → ~57</dd><dt>Looking for partners</dt><dd>Canada, China, France, Germany, Poland, Portugal, Spain, Switzerland, UK, USA</dd><dt>Recruits from</dt><dd>Brazil, Chile, Venezuela</dd><dt>Test prep today</dt><dd>None on site (claimed on profile)</dd><dt>Credentials</dt><dd>Profile shows no IAS; LinkedIn posts claim ICEF accreditation</dd></dl>
+      <p class="sources">Sources: <a href="https://ve.linkedin.com/in/cermeno" target="_blank" rel="noopener">LinkedIn (Cermeño)</a></p>
+    </div>
+  </div>
+</article>
+<article class="meeting" id="findandstudy">
+  <div class="rail">
+    <div class="time mono">18:00</div>
+    <div class="day">Tue</div>
+    <div class="n mono">21</div>
+  </div>
+  <div class="body">
+    <header>
+      <div class="kicker">Istanbul, Türkiye</div>
+      <h2>Find And Study</h2>
+      <div class="badges"><span class="badge ">Est. 2018</span><span class="badge ">8 FT + 3 PT advisers</span><span class="badge ok">ICEF IAS</span><span class="badge ok">ITAC</span><span class="badge accent">Inbound broker</span></div>
+      <div class="contact">
+        <div class="who"><strong>Dr. Eymen Namazcı</strong> · Founder &amp; CEO</div>
+        <div class="bits"><span class="mono sel">en@findandstudy.com</span> · <span class="mono sel">relations@findandstudy.com</span> · <span class="mono sel">+90 505 558 8151</span></div>
+        <div class="links"><a href="https://www.findandstudy.com" target="_blank" rel="noopener">findandstudy.com</a> · <a href="https://www.wsz.edu.pl/?p=3437" target="_blank" rel="noopener">Founder bio (2018)</a></div>
+      </div>
+    </header>
+    <div class="grid">
+      <div class="summary">
+        <ul class="bullets"><li>An inbound agency that places international students into Turkish universities (public and private; ~100 partners, featured names include Bilgi, Koç, Boğaziçi, Medipol, Özyeğin), with add-on services: dorm booking, insurance, SIM cards, airport transfer and sworn translation. Site runs in seven languages (EN, TR, AR, FR, RU, AZ, FA).</li><li>Recruits from MENA, Central Asia and Russia: Albania, Algeria, Azerbaijan, Egypt, Iran, Iraq, Jordan, Kazakhstan, Kyrgyzstan, Morocco, Russia and Saudi Arabia. The ICEF profile says it also places into Azerbaijan, Lithuania, Latvia and Hungary since 2023, but the website shows Türkiye only.</li><li>Self-reports ~430 placements a year (246 UG, 150 vocational, i.e. two-year programmes); plausible for a volume broker of Turkish private universities, but the site publishes no numbers and nothing independent confirms it. Legal owner shown as Safi Group Education & Services.</li><li>The founder is an academic (PhD, lecturer at Ayvansaray University) and former Beyoğlu city-council secretary general. The site has exam info pages for YÖS, ALES, SAT and ACT but no English test prep. Wants outbound partners in 12 countries including USA, UK, Canada, Germany and Poland.</li></ul>
+        <p class="angle"><span class="lbl">Angle</span>Arabic, Russian or Persian-interface IELTS/TOEFL/PTE prep bundled into their service packages for English-medium Turkish programmes (some accept DET), and IELTS for the outbound ambitions. Expect commission-per-signup talk.</p>
+      </div>
+      <aside class="estimate">
+        <div class="lbl">Students / year (est.)</div>
+        <div class="num">200–450</div>
+        <div class="range">Self-reported 428; inbound to Turkish universities</div>
+        <span class="conf conf-low">low confidence</span>
+        <p class="basis">Volume is believable for the model and the 11-person adviser team, but it is uncorroborated and the European placements are not evidenced.</p>
+      </aside>
+    </div>
+    <div class="more">
+      <div class="lbl">Profile detail</div>
+      <dl class="facts"><dt>Self-reported (12 mo)</dt><dd>Vocational 150 · UG 246 · Master's 18 · MBA 5 · PhD 9 → ~428</dd><dt>Looking for partners</dt><dd>Belarus, Canada, China, Czech Republic, Germany, Ireland, Latvia, Lithuania, Poland, Ukraine, UK, USA</dd><dt>Recruits from</dt><dd>Albania, Algeria, Azerbaijan, Egypt, Iran, Iraq, Jordan, Kazakhstan, Kyrgyz Republic, Morocco, Russia, Saudi Arabia</dd><dt>Test prep today</dt><dd>None (info pages for YÖS, ALES, SAT, ACT)</dd><dt>Credentials</dt><dd>ICEF IAS; ITAC #2187</dd><dt>Watch for</dt><dd>No office address, team or founder named on the site</dd></dl>
+      <p class="sources">Sources: <a href="https://www.wsz.edu.pl/?p=3437" target="_blank" rel="noopener">Founder bio</a> · <a href="https://tr.linkedin.com/in/eymennamazci" target="_blank" rel="noopener">LinkedIn (Namazcı)</a></p>
+    </div>
+  </div>
+</article>
+</section>
+
+<footer class="foot">
+  <p>Compiled 27 October 2026 from the ICEF Berlin Marcom eSchedule profiles, each organisation's own website, and public web sources (agent lists, press, directories). Figures labelled self-reported are the agencies' own ICEF entries and are unverified. LinkedIn and social pages could not be read, so headcounts come from secondary listings.</p>
+</footer>
+</div>
+</body>
+</html>
