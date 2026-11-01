@@ -58,6 +58,7 @@ def partner_markets():
             continue
         # Pull every parenthetical and the main clause alike; split on commas / semicolons / slashes.
         text = line.replace("(profile also lists", ",").replace("(profile:", ",").replace("(profile)", "")
+        text = text.replace("(offices also in", ",")
         text = re.sub(r"\b(in practice|office clearly active too|profile)\b", "", text)
         parts = re.split(r"[,;()]", text)
         for p in parts:

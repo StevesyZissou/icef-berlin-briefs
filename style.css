@@ -214,3 +214,6 @@ table.signups tr:hover td { background: var(--surface-2); }
   .controls .count { margin-left: 0; width: 100%; }
   .tag { display: block; margin: 3px 0 0; width: max-content; max-width: 100%; }
 }
+
+.changes { margin: 0; max-width: 72ch; font-size: 13.5px; padding: 8px 12px; background: var(--accent-soft); border-radius: 4px; color: var(--fg); }
+.changes .lbl { color: var(--accent-ink); }

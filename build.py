@@ -40,7 +40,7 @@ def render_index(day_label, items):
         rows.append(
             f'<tr><td class="t">{esc(m["time"])}</td>'
             f'<td class="org"><a href="#{m["id"]}">{esc(m["org"])}</a>'
-            f'<span class="sub">{esc(m["contact"]["name"])} · {esc(m["location"])}</span></td>'
+            f'<span class="sub">{esc(m["contact"]["name"])} · {esc(m["location"].split(" · ")[0])}</span></td>'
             f'<td class="kind">{esc(m["kind"])}</td>'
             f'<td class="est"><span class="num">{esc(est)}</span>'
             f'{conf_pill(m["estimate"]["confidence"])}</td></tr>'
@@ -167,6 +167,7 @@ img {{ max-width: 100%; }}
     {''.join(f'<div class="stat"><div class="v mono">{esc(v)}</div><div class="k">{esc(k)}</div></div>' for k, v in META['stats'])}
   </div>
   <p class="howto">{META['howto']}</p>
+  {('<p class="changes"><span class="lbl">Changes</span>' + META['changes'] + '</p>') if META.get('changes') else ''}
 </header>
 
 <section class="indexes">
